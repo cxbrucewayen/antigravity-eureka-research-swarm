@@ -1,20 +1,62 @@
-# Antigravity Eureka Research Swarm ($(System.Collections.Hashtable.Name))
+# Eureka Research Swarm ($(System.Collections.Hashtable.Repo))
 
 > **Eureka Research · 尤里卡全自动科研军团**
->
-> End-to-end automated scientific research multi-agent swarm for Google Antigravity — from literature survey & hypothesis generation to experiment execution & analysis.
 
+[![CI](https://github.com/cxbrucewayen/antigravity-eureka-research-swarm/actions/workflows/ci.yml/badge.svg)](https://github.com/cxbrucewayen/antigravity-eureka-research-swarm/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-orange.svg)](./LICENSE)
-[![Antigravity](https://img.shields.io/badge/Google%20Antigravity-%2Fswarm-10B981.svg)](https://github.com/cxbrucewayen/antigravity-eureka-research-swarm)
-[![Status](https://img.shields.io/badge/Status-Initializing%20%F0%9F%9A%A7-blue.svg)](https://github.com/cxbrucewayen/antigravity-eureka-research-swarm)
+[![Node](https://img.shields.io/badge/Node.js-%3E%3D20-339933.svg)](https://nodejs.org/)
+[![Chassis](https://img.shields.io/badge/Chassis-antigravity--swarm--template%20v0.2.0-0F766E.svg)](https://github.com/cxbrucewayen/antigravity-swarm-template)
 
 ---
 
-## Overview / 项目简介
+## Overview / 项目定位
 
-基于 **Google Antigravity /swarm** 构建的全自动化科研多智能体系统，覆盖文献调研、科学假设推演、实验方案设计、自动执行验证与结果分析全闭环。
+基于 **Google Antigravity 2.0 原生 /swarm** 构建的全自动化科研多智能体系统——覆盖文献调研、科学假设推演、实验方案设计、自动执行验证与结果分析全闭环。
 
-> **Status**: Repository initialized and open-sourced under MIT. Architecture design and multi-agent /swarm implementation in progress.
+Built on the hardened **[ntigravity-swarm-template v0.2.0](https://github.com/cxbrucewayen/antigravity-swarm-template)** chassis (see [**ARCHITECTURE.md**](./ARCHITECTURE.md)):
+- **Coexistence-Safe Routing & Scoped Hooks**: Strictly isolated to [swarm:eureka-research-swarm], .eureka-research-swarm/ownership.json, and PLUGIN_DATA (~1ms fast-path skip for unrelated chats and other Swarms).
+- **Coordinator Immunity & Native 	asks[] Sharding**: Protects Coordinator writes while automatically mapping sharded workers (producer-1..k) to role ownership rules.
+- **Multi-Turn & Filesystem-Verified Stop Gate**: Retains loaded role skills across swarm_wait revise loops, inspects both post_message and planner outputs, enforces 3-Strike circuit breakers, and verifies physical artifact creation on disk.
+
+---
+
+## Repository Layout / 目录结构
+
+``text
+antigravity-eureka-research-swarm/
+├── plugin/                                      # Antigravity 2.0 Plugin payload ($(System.Collections.Hashtable.Slug))
+│   ├── plugin.json                              # Plugin manifest
+│   ├── hooks.json                               # Scoped PreToolUse + Multi-Turn Stop Gate
+│   ├── rules/AGENTS.md                          # Coexistence-safe domain trigger rule
+│   ├── hooks/                                   # Zero-Trust ownership & delivery contract engine
+│   └── skills/
+│       ├── eureka-research-swarm/                          # Coordinator orchestrator + brief-templates.md
+│       ├── eureka-research-swarm-planner/                  # Wave 1 scope & contract planner skill
+│       ├── eureka-research-swarm-producer/                 # Wave 2 parallel/sharded producer skill
+│       └── eureka-research-swarm-verifier/                 # Independent zero-trust auditor skill
+├── scripts/validate-plugin.mjs                  # Official Antigravity spec & coexistence validator
+├── tests/template-plugin.test.mjs               # 13-case automated unit & integration test suite
+├── install.ps1 / install.sh                     # Global or workspace-scoped (-Workspace) installer
+└── ARCHITECTURE.md                              # Protocol & multi-swarm coexistence specification
+``
+
+---
+
+## Quick Start / 安装与验证
+
+``powershell
+# Validate plugin spec & run 13 automated tests
+npm run validate
+npm test
+
+# Install globally (~/.gemini/config/plugins/eureka-research-swarm)
+pwsh -ExecutionPolicy Bypass -File .\install.ps1    # macOS/Linux: bash ./install.sh
+``
+
+Launch in **Google Antigravity 2.0**:
+``text
+/swarm 启动 eureka-research-swarm 团队，帮我完成：【在此输入你的目标任务】
+``
 
 ---
 
@@ -22,6 +64,7 @@
 
 | Repository | Domain |
 | :--- | :--- |
+| [antigravity-swarm-template](https://github.com/cxbrucewayen/antigravity-swarm-template) | Official-Spec Starter Template (`v0.2.0` Base Chassis) |
 | [antigravity-gstack-swarm](https://github.com/cxbrucewayen/antigravity-gstack-swarm) | Full-Stack Software Engineering Team |
 | [antigravity-eureka-research-swarm](https://github.com/cxbrucewayen/antigravity-eureka-research-swarm) | End-to-End Automated Scientific Research |
 | [antigravity-accept-paper-swarm](https://github.com/cxbrucewayen/antigravity-accept-paper-swarm) | Paper Writing, Peer-Review Simulation & Rebuttal Revision |
